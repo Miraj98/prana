@@ -41,8 +41,6 @@ function addPost(postContent) {
     });
 }
 
-
-
 $(window).load(function() {
     ProvideWeb3(function() {
         getContractArtifacts();
