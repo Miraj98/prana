@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "./ERC20.sol"
+import "./ERC20.sol";
 
 contract PranaToken is ERC20 {
     string public TokenName = "PRANA";
@@ -9,7 +9,7 @@ contract PranaToken is ERC20 {
     uint public INITIAL_SUPPLY = 10000*(10**decimals);
 
     constructor() public {
-        totalSupply = INITIAL_SUPPLY;
-        balances[msg.sender] = INITIAL_SUPPLY;
+        totalSupply_ = INITIAL_SUPPLY;
+        balances_[msg.sender] = INITIAL_SUPPLY;
     }
 }
