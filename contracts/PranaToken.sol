@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "./ERC20.sol"
+import "./ERC20.sol";
 
 contract PranaToken is ERC20 {
     string public TokenName = "PRANA";
