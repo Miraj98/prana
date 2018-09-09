@@ -36,14 +36,26 @@
     "style-loader": "^0.21.0",
     "truffle": "^4.1.13",
     "truffle-contract": "^3.0.6",
-    "web3": "^0.20.0",
+    "web3": "^0.20.7",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.6",
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
     "async": "2.6.1",
-    "ipfs": "0.31.7",
+    "ipfs-mini": "^1.1.2",
     "ipld-bitcoin": "0.1.7"
-  }
+  },
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miraj98/prana.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Miraj98/prana/issues"
+  },
+  "homepage": "https://github.com/Miraj98/prana#readme"
 }

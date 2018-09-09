@@ -2,8 +2,8 @@
 import '../styles/app.css';
 import "truffle-contract";
 
-const IPFS = require('ipfs');
-const node = new IPFS();
+const IPFS = require('ipfs-mini');
+const node = new IPFS({ host: 'localhost', port: 5001, protocol: 'http' });
 
 var prana;
 var web3Provider;
@@ -27,17 +27,29 @@ function getContractArtifacts() {
 }
 
 function addPost(postContent) {
-    var buff = Buffer.from(postContent);
-    var ipfsHash;
-    node.files.add(buff, function(err, result) {
-        if(err){
-            console.log(err);
-        } else {
-            ipfsHash = result[0].hash;
-            prana.deployed().then(function(instance) {
-                instance.addContent(ipfsHash, { from: web3.eth.accounts[0]});
-            });
-        }
+    node.add(postContent, (err, result) => {
+        prana.deployed().then(instance => {
+            instance.addContent(result, { from:web3.eth.accounts[0] })
+        });
+    });
+}
+
+function getUserPost() {
+    prana.deployed().then(instance => {
+        instance.getNumOfUserPost().then(result => {
+            $("#post").append("<h1>Your Posts: </h1>");
+            $("#post").append("<br><br>");
+            for(let i = 0; i < result.toNumber(); i++) {
+                prana.deployed().then(instance => {
+                    instance.getUserPost(web3.eth.accounts[0],i)
+                        .then(result=>{
+                            ipfs.cat(result, (err, response) =>{
+                                $("#post").append(`<div><h2>${i+1}. ${String.fromCharCode.apply(String, response)}</h2></div>`);
+                            })
+                    });
+                });
+            }
+        });
     });
 }
 
@@ -46,8 +58,12 @@ $(window).load(function() {
         getContractArtifacts();
     });
 
-    node.on('ready', async () => {
-        const version = await node.version();
-        console.log("Version: ", version.version);
+    $("#send").click(function() {
+        var post = $("#amount").val(); 
+        addPost(post);
     });
+    $("#getPost").click(function() {
+        getUserPost();
+    });
+
 });
