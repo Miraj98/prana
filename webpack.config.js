@@ -15,6 +15,10 @@ module.exports = {
     ])
   ],
   devtool: 'source-map',
+  devServer: {
+    inline:true,
+    port: 8008
+  },
   module: {
     rules: [
       { test: /\.s?css$/, use: [ 'style-loader', 'css-loader', 'sass-loader' ] },
